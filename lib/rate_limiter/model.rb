@@ -29,7 +29,7 @@ module RateLimiter
         if rate_limit?
           klass = self.class
 
-          others = klass.where("#{klass.rate_limit_on} =? AND created_at >= ?", self.send(klass.rate_limit_on), Time.now - klass.rate_limit_interval)
+          others = klass.where("#{klass.rate_limit_on.to_s} = ? AND #{RateLimiter.config.timestamp_field.to_s} >= ?", self.send(klass.rate_limit_on), Time.now - klass.rate_limit_interval)
 
           if others.present?
             # TODO: Come up with a better error message.

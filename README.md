@@ -1,4 +1,4 @@
-# rate_limiter
+# Rate Limiter
 
 A gem that limits the rate at which ActiveRecord model instances can be created.
 
