@@ -1,0 +1,7 @@
+*.gem
+.bundle
+pkg/*
+.DS_Store
+._*
+.idea/
+.redcar/
