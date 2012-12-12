@@ -1,6 +1,6 @@
 # rate_limiter
 
-
+A gem that limits the rate at which ActiveRecord model instances can be created.
 
 ## Rails Version
 
@@ -12,15 +12,33 @@ Add the gem to your project's Gemfile:
 
     gem 'rate_limiter'
 
-Add `rate_limit` to the models you want to rate limit.
-
-## API Summary
-
-More on this later!
-
 ## Basic Usage
 
-More on this later!
+In the models you want to rate limit simply call the `rate_limit` method inside the model.
+
+```ruby
+class ProductReview < ActiveRecord::Base
+  rate_limit
+end
+```
+
+By default this will rate limit creation of instances using the `ip_address` attribute with an interval of one minute. This is kind of a bold assumption (that may change in future versions) since there's a good chance you don't have an `ip_address` attribute on your model. If that's the case then you can do the following:
+
+```ruby
+class ProductReview < ActiveRecord::Base
+  rate_limit :on => :username
+end
+```
+
+This will instead check for `ProductReview`s with a matching `username` instead.
+
+Because you may want to increase or decrease the interval between creating instances of your model you can do this:
+
+```ruby
+class ProductReview < ActiveRecord::Base
+  rate_limit :interval => 3.hours
+end
+```
 
 ## Contributing
 

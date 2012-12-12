@@ -15,10 +15,10 @@ module RateLimiter
         self.rate_limit_interval = options[:interval] || 1.minute
 
         class_attribute :rate_limit_if_condition
-        self.if_condition = options[:if]
+        self.rate_limit_if_condition = options[:if]
 
         class_attribute :rate_limit_unless_condition
-        self.unless_condition = options[:unless]
+        self.rate_limit_unless_condition = options[:unless]
 
         self.before_create :check_rate_limit
       end
@@ -26,15 +26,21 @@ module RateLimiter
 
     module InstanceMethods
       def check_rate_limit
-        klass = self.class
+        if rate_limit?
+          klass = self.class
 
-        others = klass.where("#{klass.rate_limit_on} =? AND created_at >= ?", self.send(klass.rate_limit_on), Time.now - klass.rate_limit_interval)
+          others = klass.where("#{klass.rate_limit_on} =? AND created_at >= ?", self.send(klass.rate_limit_on), Time.now - klass.rate_limit_interval)
 
-        if others.present?
-          # TODO: Come up with a better error message.
-          self.errors.add(:base, "You cannot create a new #{klass.name.downcase} yet.")
+          if others.present?
+            # TODO: Come up with a better error message.
+            self.errors.add(:base, "You cannot create a new #{klass.name.downcase} yet.")
 
-          false
+            false
+          else
+            true
+          end
+        else
+          true
         end
       end
 
