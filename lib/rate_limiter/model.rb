@@ -20,13 +20,24 @@ module RateLimiter
         class_attribute :rate_limit_unless_condition
         self.rate_limit_unless_condition = options[:unless]
 
+        class_attribute :rate_limit_enabled_for_model
+        self.rate_limit_enabled_for_model = true
+
+        def rate_limit_off
+          self.rate_limit_enabled_for_model = false
+        end
+
+        def rate_limit_on
+          self.rate_limit_enabled_for_model = true
+        end
+
         self.before_create :check_rate_limit
       end
     end
 
     module InstanceMethods
       def check_rate_limit
-        if rate_limit?
+        if switched_on? && rate_limit?
           klass = self.class
 
           others = klass.where("#{klass.rate_limit_on.to_s} = ? AND #{RateLimiter.config.timestamp_field.to_s} >= ?", self.send(klass.rate_limit_on), Time.now - klass.rate_limit_interval)
@@ -42,6 +53,10 @@ module RateLimiter
         else
           true
         end
+      end
+
+      def switched_on?
+        RateLimiter.enabled? && RateLimiter.enabled_for_controller? && self.class.rate_limit_enabled_for_model
       end
 
       def rate_limit?
