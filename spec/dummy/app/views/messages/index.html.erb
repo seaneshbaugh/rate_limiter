@@ -1,0 +1,6 @@
+<div id="messages">
+  <h1>Messages</h1>
+  <% @messages.each do |message| %>
+    <%= render 'message', :message => message %>
+  <% end %>
+</div>
