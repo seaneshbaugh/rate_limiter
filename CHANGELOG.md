@@ -1,3 +1,12 @@
+## v0.0.5
+
+* Enabling/Disabling for individual controllers actually works now.
+
+## v0.0.4
+
+* Added dummy Rails application for testing.
+* Updated development dependencies.
+
 ## v0.0.3
 
 * Added more if and unless conditions for rate limiting.

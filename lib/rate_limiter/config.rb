@@ -1,3 +1,5 @@
+require 'singleton'
+
 module RateLimiter
   class Config
     include Singleton

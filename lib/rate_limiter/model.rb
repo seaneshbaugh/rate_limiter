@@ -5,7 +5,7 @@ module RateLimiter
     end
 
     module ClassMethods
-      def rate_limit options = {}
+      def rate_limit(options = {})
         send :include, InstanceMethods
 
         class_attribute :rate_limit_on
@@ -23,15 +23,15 @@ module RateLimiter
         class_attribute :rate_limit_enabled_for_model
         self.rate_limit_enabled_for_model = true
 
-        def rate_limit_off
-          self.rate_limit_enabled_for_model = false
-        end
-
-        def rate_limit_on
-          self.rate_limit_enabled_for_model = true
-        end
-
         self.before_create :check_rate_limit
+      end
+
+      def rate_limit_off
+        self.rate_limit_enabled_for_model = false
+      end
+
+      def rate_limit_on
+        self.rate_limit_enabled_for_model = true
       end
     end
 

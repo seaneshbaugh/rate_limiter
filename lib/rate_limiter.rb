@@ -1,5 +1,3 @@
-require 'singleton'
-
 require 'rate_limiter/config'
 require 'rate_limiter/controller'
 require 'rate_limiter/model'
@@ -14,11 +12,11 @@ module RateLimiter
   end
 
   def self.enabled_for_controller=(value)
-    RateLimiter.store[:request_enabled_for_controller] = value
+    rate_limiter_store[:request_enabled_for_controller] = value
   end
 
   def self.enabled_for_controller?
-    !!RateLimiter.store[:request_enabled_for_controller]
+    !!rate_limiter_store[:request_enabled_for_controller]
   end
 
   def self.timestamp_field=(field_name)
@@ -30,25 +28,25 @@ module RateLimiter
   end
 
   def self.source=(value)
-    RateLimiter.store[:source] = value
+    rate_limiter_store[:source] = value
   end
 
   def self.source
-    RateLimiter.store[:source]
+    rate_limiter_store[:source]
   end
 
   def self.controller_info=(value)
-    RateLimiter.store[:controller_info] = value
+    rate_limiter_store[:controller_info] = value
   end
 
   def self.controller_info
-    RateLimiter.store[:controller_info]
+    rate_limiter_store[:controller_info]
   end
 
   private
 
-  def self.store
-    Thread.current[:rate_limiter] || { :request_enabled_for_controller => true }
+  def self.rate_limiter_store
+    Thread.current[:rate_limiter] ||= { :request_enabled_for_controller => true }
   end
 
   def self.config
