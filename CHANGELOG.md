@@ -1,3 +1,7 @@
+## v0.0.6
+
+* Updated dependencies to allow for Rails 4.
+
 ## v0.0.5
 
 * Enabling/Disabling for individual controllers actually works now.
