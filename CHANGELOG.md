@@ -1,3 +1,7 @@
+## v0.1.0
+
+* Updated for Rails 5.
+
 ## v0.0.6
 
 * Updated dependencies to allow for Rails 4.

@@ -18,15 +18,16 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'railties', '>= 3.2'
-  s.add_dependency 'activerecord', '>= 3.2'
+  s.add_dependency 'railties', '>= 4.0.2'
+  s.add_dependency 'activerecord', '>= 4.0.2'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'jquery-rails'
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rails', '>= 3.2'
+  s.add_development_dependency 'rails', '5.0.1'
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rubocop'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'sqlite3'
 end

@@ -15,6 +15,6 @@ describe RateLimiter::Model do
 
     message2.save
 
-    message2.errors.count.should eq(1)
+    expect(message2.errors.count).to eq(1)
   end
 end

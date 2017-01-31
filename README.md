@@ -4,7 +4,7 @@ A gem that limits the rate at which ActiveRecord model instances can be created.
 
 ## Rails Version
 
-This gem has only been tested on Rails 3.2. There is no reason that I am aware of that would prevent it from working on all versions of Rails 3 (and Rails 4 when it is released).
+The tests for this gem use Rails 5. However, any version of Rails from 3.2 onward should be compatible.
 
 ## Installation
 
@@ -22,11 +22,11 @@ class ProductReview < ActiveRecord::Base
 end
 ```
 
-By default this will rate limit creation of instances using the `ip_address` attribute with an interval of one minute. This is kind of a bold assumption (that may change in future versions) since there's a good chance you don't have an `ip_address` attribute on your model. If that's the case then you can do the following:
+By default this will rate limit creation of instances using the `ip_address` attribute with an interval of one minute. This is a pretty big assumption (that may change in future versions) since there's a good chance you don't have an `ip_address` attribute on your model. If that's the case then you can do the following:
 
 ```ruby
 class ProductReview < ActiveRecord::Base
-  rate_limit :on => :username
+  rate_limit on: :username
 end
 ```
 
@@ -36,7 +36,7 @@ Because you may want to increase or decrease the interval between creating insta
 
 ```ruby
 class ProductReview < ActiveRecord::Base
-  rate_limit :interval => 3.hours
+  rate_limit interval: 3.hours
 end
 ```
 

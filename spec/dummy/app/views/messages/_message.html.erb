@@ -1,8 +1,8 @@
-<div id="message-<%= message.id %>" class="message">
+<div id="<%= dom_id(message) %>" class="message">
   <h2 class="message-subject"><%= link_to message.subject, message_path(message) %></h2>
   <h3 class="message-user"><%= message.first_name %> <%= message.last_name %></h3>
   <div class="message-body"><%= message.body %></div>
   <div class="message-ip-address">posted from <%= message.ip_address %></div>
   <div class="message-date">posted on <%= message.created_at %></div>
-  <div class="message-controls"><%= link_to 'Edit Message', edit_message_path(message) %> | <%= link_to 'Delete Message', message_path(message), :method => :delete, :data => { :confirm => 'Are you sure you want to delete this message?' } %></div>
+  <div class="message-controls"><%= link_to 'Edit Message', edit_message_path(message) %> | <%= link_to 'Delete Message', message_path(message), method: :delete, data: { confirm: 'Are you sure you want to delete this message?' } %></div>
 </div>

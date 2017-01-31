@@ -1,16 +1,11 @@
 class MessagesController < ApplicationController
+  before_action :set_message, only: [:show, :edit, :update, :destroy]
+
   def index
     @messages = Message.all
   end
 
   def show
-    @message = Message.where(:id => params[:id]).first
-
-    if @message.nil?
-      flash[:error] = 'Could not find the specified message.'
-
-      redirect_to messages_url
-    end
   end
 
   def new
@@ -18,7 +13,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params[:message])
+    @message = Message.new(message_params)
 
     @message.ip_address = request.remote_ip
 
@@ -27,49 +22,44 @@ class MessagesController < ApplicationController
 
       redirect_to messages_url
     else
+      flash.now[:error] = @message.errors.full_messages.uniq.join('. ') + '.'
+
       render 'new'
     end
   end
 
   def edit
-    @message = Message.where(:id => params[:id]).first
-
-    if @message.nil?
-      flash[:error] = 'Could not find the specified message.'
-
-      redirect_to messages_url
-    end
   end
 
   def update
-    @message = Message.where(:id => params[:id]).first
-
-    if @message.nil?
-      flash[:error] = 'Could not find the specified message.'
-
-      redirect_to messages_url
-    end
-
-    if @message.update_attributes(params[:message])
+    if @message.update_(message_params)
       flash[:success] = 'Message has been updated.'
 
       redirect_to messages_url
     else
+      flash.now[:error] = @message.errors.full_messages.uniq.join('. ') + '.'
+
       render 'edit'
     end
   end
 
   def destroy
-    @message = Message.where(:id => params[:id]).first
-
-    if @message.nil?
-      flash[:error] = 'Could not find the specified message.'
-
-      redirect_to messages_url
-    end
-
     @message.destroy
 
+    flash[:success] = 'Message has been deleted.'
+
     redirect_to messages_url
+  end
+
+  private
+
+  def set_message
+    @message = Message.where(id: params[:id]).first
+
+    raise ActiveRecord::RecordNotFound if @message.nil?
+  end
+
+  def message_params
+    params.require(:message).permit(:first_name, :last_name, :subject, :body)
   end
 end
