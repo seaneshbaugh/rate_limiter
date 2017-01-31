@@ -8,7 +8,7 @@ module RateLimiter
   end
 
   def self.enabled?
-    !!RateLimiter.config.enabled
+    RateLimiter.config.enabled
   end
 
   def self.enabled_for_controller=(value)
@@ -16,7 +16,7 @@ module RateLimiter
   end
 
   def self.enabled_for_controller?
-    !!rate_limiter_store[:request_enabled_for_controller]
+    rate_limiter_store[:request_enabled_for_controller]
   end
 
   def self.timestamp_field=(field_name)
@@ -43,14 +43,12 @@ module RateLimiter
     rate_limiter_store[:controller_info]
   end
 
-  private
-
   def self.rate_limiter_store
-    Thread.current[:rate_limiter] ||= { :request_enabled_for_controller => true }
+    Thread.current[:rate_limiter] ||= { request_enabled_for_controller: true }
   end
 
   def self.config
-    @@config ||= RateLimiter::Config.instance
+    @config ||= RateLimiter::Config.instance
   end
 end
 

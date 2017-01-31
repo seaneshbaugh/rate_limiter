@@ -8,7 +8,9 @@ module RateLimiter
     protected
 
     def user_for_rate_limiter
-      current_user rescue nil
+      current_user
+    rescue
+      nil
     end
 
     def info_for_rate_limiter

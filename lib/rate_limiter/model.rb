@@ -23,7 +23,7 @@ module RateLimiter
         class_attribute :rate_limit_enabled_for_model
         self.rate_limit_enabled_for_model = true
 
-        self.before_create :check_rate_limit
+        before_create :check_rate_limit
       end
 
       def rate_limit_off
@@ -37,22 +37,12 @@ module RateLimiter
 
     module InstanceMethods
       def check_rate_limit
-        if switched_on? && rate_limit?
-          klass = self.class
+        return true unless switched_on? && rate_limit? && others_for_rate_limiting.present?
 
-          others = klass.where("#{klass.rate_limit_on.to_s} = ? AND #{RateLimiter.config.timestamp_field.to_s} >= ?", self.send(klass.rate_limit_on), Time.now - klass.rate_limit_interval)
+        # TODO: i18nize this error message.
+        errors.add(:base, "You cannot create a new #{self.class.name.downcase} yet.")
 
-          if others.present?
-            # TODO: Come up with a better error message.
-            self.errors.add(:base, "You cannot create a new #{klass.name.downcase} yet.")
-
-            false
-          else
-            true
-          end
-        else
-          true
-        end
+        false
       end
 
       def switched_on?
@@ -61,6 +51,20 @@ module RateLimiter
 
       def rate_limit?
         (rate_limit_if_condition.blank? || rate_limit_if_condition.call(self)) && !rate_limit_unless_condition.try(:call, self)
+      end
+
+      private
+
+      def others_for_rate_limiting
+        self.class.where(rate_limit_on_query_params).where(rate_limit_interval_query_params)
+      end
+
+      def rate_limit_on_query_params
+        { self.class.rate_limit_on => send(self.class.rate_limit_on) }
+      end
+
+      def rate_limit_interval_query_params
+        self.class.arel_table[RateLimiter.config.timestamp_field].gteq(Time.now - self.class.rate_limit_interval)
       end
     end
   end

@@ -1,0 +1,31 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - spec/dummy/db/schema.rb
+
+# Metrics/AbcSize:
+#   Enabled: false
+
+# Metrics/ClassLength:
+#   Enabled: false
+
+# Metrics/CyclomaticComplexity:
+#   Enabled: false
+
+Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/LineLength:
+  Max: 200
+
+Style/NumericLiterals:
+  MinDigits: 6
+
+# Metrics/PerceivedComplexity:
+#   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

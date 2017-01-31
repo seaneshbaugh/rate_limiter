@@ -5,8 +5,7 @@ class MessagesController < ApplicationController
     @messages = Message.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @message = Message.new
@@ -28,8 +27,7 @@ class MessagesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @message.update_(message_params)
