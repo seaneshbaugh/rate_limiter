@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RateLimiter
   module Controller
     def self.included(base)

@@ -1,0 +1,9 @@
+<h1>Messages</h1>
+<% if current_user.present? %>
+  <%= link_to('New Message', new_message_path) %>
+<% end %>
+<ul class="messages">
+  <% @messages.each do |message| %>
+    <ul><%= link_to(message.subject, message_path(message)) %> (by <%= link_to(message.user.email, user_path(message.user)) %> at <%= message.created_at.to_s(:iso8601) %>)</ul>
+  <% end %>
+</ul>

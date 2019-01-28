@@ -1,0 +1,22 @@
+<h1>Show Message</h1>
+<div class="message">
+  <div class="message-subject">
+    <strong>Subject:</strong> <%= @message.subject %>
+  </div>
+  <div class="message-from">
+    <strong>From:</strong> <%= link_to(@message.user.email, user_path(@message.user)) %>
+  </div>
+  <div class="message-body">
+    <strong>Body:</strong> <%= @message.body %>
+  </div>
+  <div class="message-ip-address">
+    <strong>IP Address:</strong> <%= @message.ip_address %>
+  </div>
+  <div class="message-created-at">
+    <strong>Created At:</strong> <%= @message.created_at.to_s(:iso8601) %>
+  </div>
+</div>
+<% if @message.user == current_user %>
+  <%= link_to('Edit Message', edit_message_path(@message)) %>&nbsp;
+  <%= link_to('Delete Message', message_path(@message), method: :delete) %>
+<% end %>

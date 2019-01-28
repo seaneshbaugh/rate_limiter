@@ -1,6 +1,8 @@
 ## v0.1.0
 
 * Updated for Rails 5.
+* Use `validate` instead of `before_create`.
+* Use minitest for tests.
 
 ## v0.0.6
 

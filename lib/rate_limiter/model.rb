@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RateLimiter
   module Model
     def self.included(base)
@@ -23,7 +25,7 @@ module RateLimiter
         class_attribute :rate_limit_enabled_for_model
         self.rate_limit_enabled_for_model = true
 
-        before_create :check_rate_limit
+        validate :rate_limit_not_exceeded
       end
 
       def rate_limit_off
@@ -36,7 +38,7 @@ module RateLimiter
     end
 
     module InstanceMethods
-      def check_rate_limit
+      def rate_limit_not_exceeded
         return true unless switched_on? && rate_limit? && others_for_rate_limiting.present?
 
         # TODO: i18nize this error message.
@@ -64,7 +66,7 @@ module RateLimiter
       end
 
       def rate_limit_interval_query_params
-        self.class.arel_table[RateLimiter.config.timestamp_field].gteq(Time.now - self.class.rate_limit_interval)
+        self.class.arel_table[RateLimiter.config.timestamp_field].gteq(Time.current - self.class.rate_limit_interval)
       end
     end
   end

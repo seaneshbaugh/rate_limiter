@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rate_limiter/config'
 require 'rate_limiter/controller'
 require 'rate_limiter/model'

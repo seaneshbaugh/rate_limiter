@@ -1,7 +1,8 @@
 AllCops:
   DisplayCopNames: true
   Exclude:
-    - spec/dummy/db/schema.rb
+    - test/dummy_app/bin/*
+    - test/dummy_app/db/schema.rb
 
 # Metrics/AbcSize:
 #   Enabled: false
@@ -15,8 +16,8 @@ AllCops:
 Documentation:
   Enabled: false
 
-Metrics/MethodLength:
-  Max: 20
+# Metrics/MethodLength:
+#   Max: 10
 
 Metrics/LineLength:
   Max: 200
@@ -26,6 +27,3 @@ Style/NumericLiterals:
 
 # Metrics/PerceivedComplexity:
 #   Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Enabled: false

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DummyApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+    <header>
+      <%= link_to 'Home', root_path %>&nbsp;|
+      <%= link_to 'Users', users_path %>&nbsp;|
+      <% if current_user.present? %>
+        Currently logged in as <%= current_user.email %>&nbsp;|
+        <%= link_to('Logout', destroy_session_path, method: :delete) %>
+      <% else %>
+        <%= form_tag(create_session_path, method: :post) do %>
+          <%= email_field_tag(:email) %>
+          <%= submit_tag('Login') %>
+        <% end %>
+      <% end %>
+    </header>
+    <main>
+      <div class="flash-messages">
+        <% flash.each do |name, message| %>
+          <div class="flash-<%= name %>">
+            <strong class="flash-name"><%= name.to_s.capitalize %>:</strong> <span class="flash-message"><%= message %></span>
+          </div>
+        <% end %>
+      </div>
+      <%= yield %>
+    </main>
+  </body>
+</html>

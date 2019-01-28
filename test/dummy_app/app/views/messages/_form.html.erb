@@ -1,0 +1,11 @@
+<%= form_for(@message) do |form| %>
+  <div class="form-field">
+    <%= form.label(:subject) %>
+    <%= form.text_field(:subject) %>
+  </div>
+  <div class="form-field">
+    <%= form.label(:body) %>
+    <%= form.text_area(:body) %>
+  </div>
+  <%= form.submit('Submit') %>
+<% end %>

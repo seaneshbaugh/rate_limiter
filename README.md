@@ -1,10 +1,10 @@
 # Rate Limiter
 
-A gem that limits the rate at which ActiveRecord model instances can be created.
+Limit the rate at which ActiveRecord model instances can be created.
 
 ## Rails Version
 
-The tests for this gem use Rails 5. However, any version of Rails from 3.2 onward should be compatible.
+This gem is compatible with Rails 5 or greater. For Rails 3 and 4 use [version 0.0.6](https://rubygems.org/gems/rate_limiter/versions/0.0.6).
 
 ## Installation
 
@@ -14,18 +14,18 @@ Add the gem to your project's Gemfile:
 
 ## Basic Usage
 
-In the models you want to rate limit simply call the `rate_limit` method inside the model.
+In the models you want to rate limit simply call the `rate_limit` class method inside the model.
 
 ```ruby
-class ProductReview < ActiveRecord::Base
+class ProductReview < ApplicationRecord
   rate_limit
 end
 ```
 
-By default this will rate limit creation of instances using the `ip_address` attribute with an interval of one minute. This is a pretty big assumption (that may change in future versions) since there's a good chance you don't have an `ip_address` attribute on your model. If that's the case then you can do the following:
+By default this will rate limit creation of instances using the `ip_address` attribute with an interval of one minute. This is a pretty big assumption that may change in future versions. To use a different attribute do the following:
 
 ```ruby
-class ProductReview < ActiveRecord::Base
+class ProductReview < ApplicationRecord
   rate_limit on: :username
 end
 ```
@@ -61,5 +61,3 @@ Some things that will increase the chance that your pull request is accepted, ta
 * Use Rails idioms and helpers
 * Include tests that fail without your code, and pass with it
 * Update the documentation, guides, or whatever is affected by your contribution
-
-Yes, I am well aware of the irony of asking for tests when there are effectively none right now. This gem is a work in progress.
