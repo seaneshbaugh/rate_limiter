@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
 
 require 'rate_limiter/version'
 
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'railties', '>= 5.0.0'
 
   s.add_development_dependency 'minitest', '5.11.3'
+  s.add_development_dependency 'pry', '0.12.2'
   s.add_development_dependency 'rails', '5.2.2'
   s.add_development_dependency 'rake', '12.3.2'
   s.add_development_dependency 'rubocop', '0.63.1'
