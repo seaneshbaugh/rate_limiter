@@ -54,6 +54,8 @@ module RateLimiter
 
   def self.config
     @config ||= RateLimiter::Config.instance
+    yield @config if block_given?
+    @config
   end
 end
 
