@@ -9,7 +9,12 @@ task default: :test
 desc 'Run RateLimiter tests.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
   t.verbose = false
   t.warning = false
+
+  if ARGV.length > 1
+    t.test_files = ARGV[1..-1]
+  else
+    t.pattern = 'test/**/*_test.rb'
+  end
 end
