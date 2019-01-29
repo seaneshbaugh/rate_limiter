@@ -26,9 +26,9 @@ class ModelTest < ActiveSupport::TestCase
 
     message2.save
 
-    assert_equal(message2.errors.count, 1)
+    assert_equal(1, message2.errors.count)
 
-    assert_equal(message2.errors[:base], ['You cannot create a new message yet.'])
+    assert_equal(['You cannot create a new message yet.'], message2.errors[:base])
 
     refute message2.valid?
 
