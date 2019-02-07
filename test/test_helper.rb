@@ -2,6 +2,12 @@
 
 ENV['RAILS_ENV'] = 'test'
 
+require 'simplecov'
+
+SimpleCov.start do
+  add_filter '/test/'
+end
+
 require_relative 'dummy_app/config/environment'
 require 'minitest/autorun'
 require 'rails/test_help'

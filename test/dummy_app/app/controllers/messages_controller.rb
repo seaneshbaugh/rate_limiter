@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.create(message_params.merge(user: current_user, ip_address: request.remote_ip))
+    @message = Message.create(message_params_with_current_user)
 
     if @message.save
       flash[:success] = 'Message created.'
@@ -62,5 +62,9 @@ class MessagesController < ApplicationController
 
   def message_params
     params.required(:message).permit(:subject, :body)
+  end
+
+  def message_params_with_current_user
+    message_params.merge(user: current_user, ip_address: request.remote_ip)
   end
 end
