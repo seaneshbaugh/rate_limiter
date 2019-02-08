@@ -1,5 +1,8 @@
 # Rate Limiter
 
+[![Gem Version](https://fury-badge.herokuapp.com/rb/rate_limiter.png)](https://badge.fury.io/rb/rate_limiter)
+[![Travis](https://api.travis-ci.org/seaneshbaugh/rate_limiter.png)](https://travis-ci.org/seaneshbaugh/rate_limiter)
+
 Limit the rate at which ActiveRecord model instances can be created.
 
 ## Rails Version
