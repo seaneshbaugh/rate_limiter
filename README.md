@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/rate_limiter.svg)](https://badge.fury.io/rb/rate_limiter)
 [![Travis](https://travis-ci.com/seaneshbaugh/rate_limiter.svg?branch=master)](https://travis-ci.org/seaneshbaugh/rate_limiter)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/287d36cd30f34a818738/test_coverage)](https://codeclimate.com/github/seaneshbaugh/rate_limiter/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/287d36cd30f34a818738/maintainability)](https://codeclimate.com/github/seaneshbaugh/rate_limiter/maintainability)
 
 Limit the rate at which ActiveRecord model instances can be created.
 
