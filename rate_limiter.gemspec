@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'railties', '>= 5.0.0'
   s.add_dependency 'request_store', '~> 1.4.1'
 
+  s.add_development_dependency 'minitest-spec-rails', '5.5.0'
   s.add_development_dependency 'pry', '0.12.2'
   s.add_development_dependency 'puma', '3.12.0'
   s.add_development_dependency 'rails', '5.2.2'
