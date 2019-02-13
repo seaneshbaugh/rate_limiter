@@ -13,4 +13,10 @@ require 'minitest/autorun'
 require 'rails/test_help'
 require 'minitest-spec-rails'
 
-ActiveSupport.test_order = :random if ActiveSupport.respond_to?(:test_order)
+ActiveSupport.test_order = :random
+
+class ActiveSupport::TestCase
+  class << self
+    alias_method :context, :describe
+  end
+end

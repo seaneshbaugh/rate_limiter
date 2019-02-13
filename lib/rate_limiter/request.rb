@@ -8,14 +8,6 @@ module RateLimiter
     end
 
     class << self
-      def controller_info
-        store[:controller_info]
-      end
-
-      def controller_info=(value)
-        store[:controller_info] = value
-      end
-
       def disable_model(model_class)
         enabled_for_model(model_class, false)
       end
@@ -53,7 +45,8 @@ module RateLimiter
       end
 
       def source
-        store[:source]
+        who = store[:source]
+        who.respond_to?(:call) ? who.call : who
       end
 
       def source=(value)
@@ -86,8 +79,7 @@ module RateLimiter
       def validate_public_options(options)
         options.each do |k, _v|
           case k
-          when :controller_info,
-              /enabled_for_/,
+          when /enabled_for_/,
               :enabled,
               :source
             next

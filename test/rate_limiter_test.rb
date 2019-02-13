@@ -30,4 +30,16 @@ class RateLimiterTest < ActiveSupport::TestCase
       RateLimiter.method(:configure).must_equal(RateLimiter.method(:config))
     end
   end
+
+  context 'when enabled' do
+    after do
+      RateLimiter.enabled = true
+    end
+
+    it 'affects all threads' do
+      assert_equal(true, RateLimiter.enabled?)
+      Thread.new { RateLimiter.enabled = false }.join
+      assert_equal(false, RateLimiter.enabled?)
+    end
+  end
 end

@@ -43,13 +43,13 @@ module RateLimiter
 end
 
 ActiveSupport.on_load(:active_record) do
-  include ::RateLimiter::Model
+  include RateLimiter::Model
 end
 
 if defined?(::Rails)
   if defined?(::Rails.application)
     require 'rate_limiter/frameworks/rails'
   else
-    ::Kernel.warn('RateLimiter has been loaded before Rails.')
+    Kernel.warn('RateLimiter has been loaded before Rails.')
   end
 end

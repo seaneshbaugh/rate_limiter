@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module RateLimiter
+  # TODO: Reconsider name for this class. It makes using :: before the
+  # `RateLimiter` module necessary almost everywhere it's used. It's kind of
+  # annoying and seems generally ugly. Maybe something like `Throttle`?
   class RateLimiter
     def initialize(record, options = {})
       @record = record
