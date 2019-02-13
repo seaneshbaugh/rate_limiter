@@ -45,6 +45,10 @@ class ProductReview < ActiveRecord::Base
 end
 ```
 
+## Credit Where Credit Is Due
+
+Large portions of this gem are copied almost verbatim from the excellent [paper_trail](https://github.com/paper-trail-gem/paper_trail) gem; in particular the overall structure and all of the stuff that handles whether or not rate limiting is active.
+
 ## Contributing
 
 If you feel like you can add something useful to rate_limiter then don't hesitate to contribute! To make sure your fix/feature has a high chance of being included, please do the following:
