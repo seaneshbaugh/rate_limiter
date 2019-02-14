@@ -31,14 +31,6 @@ module RateLimiter
         Request.with(options, &block)
       end
     end
-
-    def timestamp_field=(field_name)
-      ::RateLimiter.config.timestamp_field = field_name
-    end
-
-    def timestamp_field
-      ::RateLimiter.config.timestamp_field
-    end
   end
 end
 

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module RateLimiter
-  class RateLimiterTest < ActiveSupport::TestCase
+  class ModelConfigTest < ActiveSupport::TestCase
 
   end
 end

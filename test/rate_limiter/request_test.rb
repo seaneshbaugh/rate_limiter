@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'test_helper'
+
 module RateLimiter
   class RequestTest < ActiveSupport::TestCase
     describe '.disable_model' do

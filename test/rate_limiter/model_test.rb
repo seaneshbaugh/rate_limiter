@@ -2,36 +2,38 @@
 
 require 'test_helper'
 
-class ModelTest < ActiveSupport::TestCase
-  test 'prevents a model from being saved too soon' do
-    user = User.new(email: 'test@test.com')
+module RateLimiter
+  class ModelTest < ActiveSupport::TestCase
+    test 'prevents a model from being saved too soon' do
+      user = User.new(email: 'test@test.com')
 
-    message1 = Message.new(
-      user: user,
-      subject: 'test 1',
-      body: 'test',
-      ip_address: '127.0.0.1'
-    )
+      message1 = Message.new(
+        user: user,
+        subject: 'test 1',
+        body: 'test',
+        ip_address: '127.0.0.1'
+      )
 
-    message1.save
+      message1.save
 
-    assert message1.persisted?
+      assert message1.persisted?
 
-    message2 = Message.new(
-      user: user,
-      subject: 'test 2',
-      body: 'test',
-      ip_address: '127.0.0.1'
-    )
+      message2 = Message.new(
+        user: user,
+        subject: 'test 2',
+        body: 'test',
+        ip_address: '127.0.0.1'
+      )
 
-    message2.save
+      message2.save
 
-    assert_equal(1, message2.errors.count)
+      assert_equal(1, message2.errors.count)
 
-    assert_equal(['You cannot create a new message yet.'], message2.errors[:base])
+      assert_equal(['You cannot create a new message yet.'], message2.errors[:base])
 
-    refute message2.valid?
+      refute message2.valid?
 
-    refute message2.persisted?
+      refute message2.persisted?
+    end
   end
 end

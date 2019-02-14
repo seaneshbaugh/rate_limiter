@@ -9,9 +9,6 @@ module RateLimiter
     end
 
     def setup(options = {})
-      options[:on] ||= :ip_address
-      options[:on] = Array(options[:on])
-      options[:interval] ||= 1.minute
       @model_class.send :include, ::RateLimiter::Model::InstanceMethods
       setup_options(options)
       setup_validations
