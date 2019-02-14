@@ -17,6 +17,6 @@ ActiveSupport.test_order = :random
 
 class ActiveSupport::TestCase
   class << self
-    alias_method :context, :describe
+    alias context describe
   end
 end
