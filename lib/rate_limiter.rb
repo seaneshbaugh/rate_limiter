@@ -14,7 +14,7 @@ module RateLimiter
       yield @config if block_given?
       @config
     end
-    alias_method :configure, :config
+    alias configure config
 
     def enabled=(value)
       ::RateLimiter.config.enabled = value
