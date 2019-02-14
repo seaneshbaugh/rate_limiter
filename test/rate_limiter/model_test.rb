@@ -29,7 +29,7 @@ module RateLimiter
 
       assert_equal(1, message2.errors.count)
 
-      assert_equal(['You cannot create a new message yet.'], message2.errors[:base])
+      assert_equal(['You cannot create a new Message yet.'], message2.errors[:base])
 
       refute message2.valid?
 
