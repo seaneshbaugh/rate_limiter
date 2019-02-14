@@ -3,6 +3,9 @@
 require 'singleton'
 
 module RateLimiter
+  # Global configuration that affects all threads. Thread-specific configuration
+  # can be found in `/lib/rate_limiter.rb` and in
+  # `/lib/rate_limite/frameworks/rails/controller.rb`.
   class Config
     include Singleton
 
