@@ -27,13 +27,13 @@ module RateLimiter
 
       message2.save
 
-      assert_equal(1, message2.errors.count)
-
-      assert_equal(['You cannot create a new Message yet.'], message2.errors[:base])
+      refute message2.persisted?
 
       refute message2.valid?
 
-      refute message2.persisted?
+      assert_equal(1, message2.errors.count)
+
+      assert_equal(['You cannot create a new Message yet.'], message2.errors[:base])
     end
   end
 end
