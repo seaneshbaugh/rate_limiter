@@ -60,8 +60,8 @@ module RateLimiter
       def with(options)
         return unless block_given?
 
-        validate_public_options(options)
         before = to_h
+        validate_public_options(options)
         merge(options)
         yield
       ensure
