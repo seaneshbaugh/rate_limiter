@@ -28,11 +28,11 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'minitest-spec-rails', '5.5.0'
   s.add_development_dependency 'pry', '0.12.2'
-  s.add_development_dependency 'puma', '3.12.0'
-  s.add_development_dependency 'rails', '5.2.2'
+  s.add_development_dependency 'puma', '4.0.1'
+  s.add_development_dependency 'rails', '5.2.3'
   s.add_development_dependency 'rake', '12.3.2'
-  s.add_development_dependency 'rubocop', '0.63.1'
-  s.add_development_dependency 'simplecov', '0.16.1'
-  s.add_development_dependency 'sqlite3', '1.3.13'
+  s.add_development_dependency 'rubocop', '0.73.0'
+  s.add_development_dependency 'simplecov', '0.17.0'
+  s.add_development_dependency 'sqlite3', '1.4.1'
   s.add_development_dependency 'timecop', '0.9.1'
 end
