@@ -15,9 +15,11 @@ require 'minitest-spec-rails'
 
 ActiveSupport.test_order = :random
 
-class ActiveSupport::TestCase
-  class << self
-    alias context describe
+module ActiveSupport
+  class TestCase
+    class << self
+      alias context describe
+    end
   end
 end
 
