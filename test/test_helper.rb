@@ -12,6 +12,7 @@ require_relative 'dummy_app/config/environment'
 require 'minitest/autorun'
 require 'rails/test_help'
 require 'minitest-spec-rails'
+require 'timecop'
 
 ActiveSupport.test_order = :random
 
