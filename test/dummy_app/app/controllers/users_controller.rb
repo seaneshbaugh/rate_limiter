@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-
   def index
     @users = User.all
   end
 
-  def show; end
+  def show
+    @user = find_user
+  end
 
   def new
     @user = User.new
@@ -21,27 +21,33 @@ class UsersController < ApplicationController
 
       redirect_to user_url(@user), status: :see_other
     else
-      flash[:error] = "User not created. #{@user.errors.full_messages.join('. ')}."
+      flash.now[:error] = "User not created. #{@user.errors.full_messages.join('. ')}."
 
       render 'new', status: :unprocessable_entity
     end
   end
 
-  def edit; end
+  def edit
+    @user = find_user
+  end
 
   def update
+    @user = find_user
+
     if @user.update(user_params)
       flash[:success] = 'User updated.'
 
       redirect_to user_url(@user), status: :see_other
     else
-      flash[:error] = "User not updated. #{@user.errors.full_messages.join('. ')}."
+      flash.now[:error] = "User not updated. #{@user.errors.full_messages.join('. ')}."
 
       render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
+    @user = find_user
+
     @user.destroy
 
     flash[:success] = 'User destroyed.'
@@ -51,10 +57,8 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.where(id: params[:id]).first
-
-    raise ActiveRecord::RecordNotFound if @user.nil?
+  def find_user
+    User.find_by!(id: params[:id])
   end
 
   def user_params

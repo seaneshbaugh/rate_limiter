@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Message < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, inverse_of: :messages
 
   validates :subject, presence: true
   validates :body, presence: true

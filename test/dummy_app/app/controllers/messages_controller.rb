@@ -10,7 +10,9 @@ class MessagesController < ApplicationController
     @messages = Message.all
   end
 
-  def show; end
+  def show
+    @message = find_message
+  end
 
   def new
     @message = Message.new
@@ -24,27 +26,33 @@ class MessagesController < ApplicationController
 
       redirect_to message_url(@message), status: :see_other
     else
-      flash[:error] = "Message not created. #{@message.errors.full_messages.join('. ')}."
+      flash.now[:error] = "Message not created. #{@message.errors.full_messages.join('. ')}."
 
       render 'new', status: :unprocessable_entity
     end
   end
 
-  def edit; end
+  def edit
+    @message = find_message
+  end
 
   def update
+    @message = find_message
+
     if @message.update(message_params)
       flash[:success] = 'Message updated.'
 
       redirect_to message_url(@message), status: :see_other
     else
-      flash[:error] = "Message not updated. #{@message.errors.full_messages.join('. ')}."
+      flash.now[:error] = "Message not updated. #{@message.errors.full_messages.join('. ')}."
 
       render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
+    @message = find_message
+
     @message.destroy
 
     flash[:success] = 'Message destroyed.'
@@ -54,10 +62,8 @@ class MessagesController < ApplicationController
 
   private
 
-  def set_message
-    @message = Message.where(id: params[:id]).first
-
-    raise ActiveRecord::RecordNotFound if @message.nil?
+  def find_message
+    Message.find_by!(id: params[:id])
   end
 
   def message_params
