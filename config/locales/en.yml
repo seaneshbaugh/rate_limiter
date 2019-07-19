@@ -1,0 +1,4 @@
+en:
+  rate_limiter:
+    errors:
+      rate_limit_exceeded: "You cannot create a new %{object_type} yet."

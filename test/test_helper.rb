@@ -20,3 +20,6 @@ class ActiveSupport::TestCase
     alias context describe
   end
 end
+
+require 'rails/generators/test_case'
+require 'generators/rate_limiter/install_generator'
