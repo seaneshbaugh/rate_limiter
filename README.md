@@ -7,9 +7,9 @@
 
 Limit the rate at which ActiveRecord model instances can be created.
 
-## Rails Version
+## Compatibility
 
-This gem is compatible with Rails 5 or greater. For Rails 3 and 4 use [version 0.0.6](https://rubygems.org/gems/rate_limiter/versions/0.0.6).
+This gem is compatible with Ruby 2.5 or greater and Rails 5 or greater. For Ruby versions older than 2.5 or for Rails 3 and 4 use [version 0.0.6](https://rubygems.org/gems/rate_limiter/versions/0.0.6).
 
 ## Installation
 
