@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'pry'
+
 module RateLimiter
   module Generators
     class InstallGeneratorTest < ::Rails::Generators::TestCase

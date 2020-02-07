@@ -16,9 +16,9 @@ module RateLimiter
           Timecop.freeze(time1) do
             message1.save
 
-            assert message1.persisted?
+            _(message1.persisted?).must_equal(true)
 
-            assert message1.valid?
+            _(message1.valid?).must_equal(true)
           end
 
           time2 = Time.local(2019, 7, 19, 12, 0, 15)
@@ -26,13 +26,13 @@ module RateLimiter
           Timecop.freeze(time2) do
             message2.save
 
-            refute message2.persisted?
+            _(message2.persisted?).must_equal(false)
 
-            refute message2.valid?
+            _(message2.valid?).must_equal(false)
 
-            assert_equal(1, message2.errors.count)
+            _(message2.errors.count).must_equal(1)
 
-            assert_equal(['You cannot create a new Message yet.'], message2.errors[:base])
+            _(message2.errors[:base]).must_equal(['You cannot create a new Message yet.'])
           end
         end
       end
@@ -44,9 +44,9 @@ module RateLimiter
           Timecop.freeze(time1) do
             message1.save
 
-            assert message1.persisted?
+            _(message1.persisted?).must_equal(true)
 
-            assert message1.valid?
+            _(message1.valid?).must_equal(true)
           end
 
 
@@ -55,13 +55,13 @@ module RateLimiter
           Timecop.freeze(time2) do
             message2.save
 
-            assert message2.persisted?
+            _(message2.persisted?).must_equal(true)
 
-            assert message2.valid?
+            _(message2.valid?).must_equal(true)
 
-            assert_equal(0, message2.errors.count)
+            _(message2.errors.count).must_equal(0)
 
-            assert_equal([], message2.errors[:base])
+            _(message2.errors[:base]).must_equal([])
           end
         end
       end

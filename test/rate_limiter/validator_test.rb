@@ -21,7 +21,7 @@ module RateLimiter
 
         validator.validate
 
-        dummy.errors[:base].must_equal(['You cannot create a new RateLimiter::ValidatorTest::DummyModel yet.'])
+        _(dummy.errors[:base]).must_equal(['You cannot create a new RateLimiter::ValidatorTest::DummyModel yet.'])
       end
     end
   end

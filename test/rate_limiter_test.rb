@@ -13,21 +13,21 @@ class RateLimiterTest < ActiveSupport::TestCase
     end
 
     it 'allows for config values to be set' do
-      RateLimiter.config.enabled.must_equal(true)
+      _(RateLimiter.config.enabled).must_equal(true)
       RateLimiter.config.enabled = false
-      RateLimiter.config.enabled.must_equal(false)
+      _(RateLimiter.config.enabled).must_equal(false)
     end
 
     it 'accepts a block and yields the config instance' do
-      RateLimiter.config.enabled.must_equal(true)
+      _(RateLimiter.config.enabled).must_equal(true)
       RateLimiter.config { |c| c.enabled = false }
-      RateLimiter.config.enabled.must_equal(false)
+      _(RateLimiter.config.enabled).must_equal(false)
     end
   end
 
   describe '.configure' do
     it 'is an alias for the `config` method' do
-      RateLimiter.method(:configure).must_equal(RateLimiter.method(:config))
+      _(RateLimiter.method(:configure)).must_equal(RateLimiter.method(:config))
     end
   end
 
@@ -37,9 +37,9 @@ class RateLimiterTest < ActiveSupport::TestCase
     end
 
     it 'affects all threads' do
-      assert_equal(true, RateLimiter.enabled?)
+      _(RateLimiter.enabled?).must_equal(true)
       Thread.new { RateLimiter.enabled = false }.join
-      assert_equal(false, RateLimiter.enabled?)
+      _(RateLimiter.enabled?).must_equal(false)
     end
   end
 end

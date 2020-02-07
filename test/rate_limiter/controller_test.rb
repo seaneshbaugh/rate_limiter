@@ -4,31 +4,35 @@ require 'test_helper'
 
 module RateLimiter
   class ControllerTest < ActionDispatch::IntegrationTest
-    setup do
-      user = User.create(email: 'test@test.com')
+    describe '#rate_limiter_enabled_for_controller' do
+      before do
+        user = User.create(email: 'test@test.com')
 
-      post create_session_url, params: { email: user.email }
-    end
-
-    test 'rate limit can be disabled for a controller' do
-      MessagesController.define_method(:rate_limiter_enabled_for_controller) do
-        false
+        post create_session_url, params: { email: user.email }
       end
 
-      count = Message.count
+      context 'returns false' do
+        it 'disables rate limiting for the controller' do
+          MessagesController.define_method(:rate_limiter_enabled_for_controller) do
+            false
+          end
 
-      post messages_url, params: { message: { subject: 'test 1', body: 'test' } }
+          count = Message.count
 
-      assert_response :see_other
+          post messages_url, params: { message: { subject: 'test 1', body: 'test' } }
 
-      post messages_url, params: { message: { subject: 'test 2', body: 'test' } }
+          assert_response :see_other
 
-      assert_response :see_other
+          post messages_url, params: { message: { subject: 'test 2', body: 'test' } }
 
-      assert_equal(count + 2, Message.count)
+          assert_response :see_other
 
-      MessagesController.define_method(:rate_limiter_enabled_for_controller) do
-        true
+          _(Message.count).must_equal(count + 2)
+
+          MessagesController.define_method(:rate_limiter_enabled_for_controller) do
+            true
+          end
+        end
       end
     end
   end

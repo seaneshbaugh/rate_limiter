@@ -17,7 +17,7 @@ module RateLimiter
             rate_limit on: :name
           end
 
-          assert_equal :name, dummy_model.rate_limiter_options[:on]
+          _(dummy_model.rate_limiter_options[:on]).must_equal(:name)
         end
       end
 
@@ -33,7 +33,7 @@ module RateLimiter
             rate_limit interval: 2.minutes
           end
 
-          assert_equal 120, dummy_model.rate_limiter_options[:interval]
+          _(dummy_model.rate_limiter_options[:interval]).must_equal(120)
         end
       end
 
@@ -49,7 +49,7 @@ module RateLimiter
             rate_limit if: -> (record) { true }
           end
 
-          assert dummy_model.rate_limiter_options[:if]
+          _(dummy_model.rate_limiter_options[:if]).wont_be_nil
         end
       end
 
@@ -64,7 +64,7 @@ module RateLimiter
           rate_limit unless: -> (record) { false }
         end
 
-        assert dummy_model.rate_limiter_options[:unless]
+        _(dummy_model.rate_limiter_options[:unless]).wont_be_nil
       end
     end
   end

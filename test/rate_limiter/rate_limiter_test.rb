@@ -13,11 +13,11 @@ module RateLimiter
         it 'returns true' do
           message1.save
 
-          assert message1.persisted?
+          _(message1.persisted?).must_equal(true)
 
           rate_limiter = ::RateLimiter::RateLimiter.new(message2)
 
-          assert rate_limiter.exceeded?
+          _(rate_limiter.exceeded?).must_equal(true)
         end
       end
 
@@ -31,11 +31,11 @@ module RateLimiter
 
           message1.save
 
-          assert message1.persisted?
+          _(message1.persisted?).must_equal(true)
 
           rate_limiter = ::RateLimiter::RateLimiter.new(message2)
 
-          refute rate_limiter.exceeded?
+          _(rate_limiter.exceeded?).must_equal(false)
         end
       end
 
@@ -45,11 +45,11 @@ module RateLimiter
 
           message1.save
 
-          assert message1.persisted?
+          _(message1.persisted?).must_equal(true)
 
           rate_limiter = ::RateLimiter::RateLimiter.new(message2, if_condition: if_condition)
 
-          refute rate_limiter.exceeded?
+          _(rate_limiter.exceeded?).must_equal(false)
         end
       end
 
@@ -57,7 +57,7 @@ module RateLimiter
         it 'returns false' do
           rate_limiter = ::RateLimiter::RateLimiter.new(message1)
 
-          refute rate_limiter.exceeded?
+          _(rate_limiter.exceeded?).must_equal(false)
         end
       end
     end

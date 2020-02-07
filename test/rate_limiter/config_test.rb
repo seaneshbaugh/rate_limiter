@@ -6,15 +6,15 @@ module RateLimiter
   class ConfigTest < ActiveSupport::TestCase
     describe '.instance' do
       it 'returns the singleton instance' do
-        assert ::RateLimiter::Config.instance
+        _(::RateLimiter::Config.instance).must_be_instance_of(::RateLimiter::Config)
       end
     end
 
     describe '.new' do
       it 'raises NoMethodError' do
-        assert_raises(NoMethodError) do
-          ::RateLimiter::Config.new
-        end
+        _(proc do
+            ::RateLimiter::Config.new
+          end).must_raise(NoMethodError)
       end
     end
   end
