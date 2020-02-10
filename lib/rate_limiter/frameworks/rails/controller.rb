@@ -14,11 +14,20 @@ module RateLimiter
 
       protected
 
-      # TODO: Reconsider whether or not this is even needed.
+      # Get the user to use for the source for the current request. By default this will
+      # attempt to return the value of `current_user` since that is what Devise uses. If
+      # that assumption is incorrect this method can be overridden to return the correct
+      # user or ID (or nothing at all).
+      #
+      # ```
+      # def user_for_rate_limiter
+      #   logged_in_user.id
+      # end
+      # ```
       def user_for_rate_limiter
+        return nil unless respond_to?(:current_user)
+
         current_user
-      rescue NoMethodError
-        nil
       end
 
       # Returns `true` or `false` depending on whether rate imiting should be
@@ -45,7 +54,7 @@ module RateLimiter
         ::RateLimiter.request.enabled = rate_limiter_enabled_for_controller
       end
 
-      # TODO: Reconsider whether or not this is even needed.
+      # Set the request store's source.
       def set_rate_limiter_source
         ::RateLimiter.request.source = user_for_rate_limiter if rate_limiter_enabled_for_controller
       end
