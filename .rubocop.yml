@@ -6,25 +6,13 @@ AllCops:
     - test/dummy_app/db/schema.rb
 
 Layout/LineLength:
-  Max: 200
+  Max: 207
 
-# Metrics/AbcSize:
-#   Enabled: false
+Metrics/BlockLength:
+  Max: 47
 
-# Metrics/ClassLength:
-#   Enabled: false
-
-# Metrics/CyclomaticComplexity:
-#   Enabled: false
-
-# Metrics/MethodLength:
-#   Max: 10
-
-# Metrics/PerceivedComplexity:
-#   Enabled: false
-
-# Style/Documentation:
-#   Enabled: false
+Metrics/ClassLength:
+  Max: 140
 
 Style/DoubleNegation:
   Enabled: false

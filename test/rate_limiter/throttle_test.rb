@@ -41,7 +41,7 @@ module RateLimiter
 
       context 'when rate_limit? is false' do
         it 'returns false' do
-          if_condition = -> (_record) { false }
+          if_condition = ->(_record) { false }
 
           message1.save
 

@@ -46,7 +46,7 @@ module RateLimiter
 
             attr_accessor :ip_address
 
-            rate_limit if: -> (record) { true }
+            rate_limit if: ->(_record) { true }
           end
 
           _(dummy_model.rate_limiter_options[:if]).wont_be_nil
@@ -61,7 +61,7 @@ module RateLimiter
 
           attr_accessor :ip_address
 
-          rate_limit unless: -> (record) { false }
+          rate_limit unless: ->(_record) { false }
         end
 
         _(dummy_model.rate_limiter_options[:unless]).wont_be_nil

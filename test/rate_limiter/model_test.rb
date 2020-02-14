@@ -49,7 +49,6 @@ module RateLimiter
             _(message1.valid?).must_equal(true)
           end
 
-
           time2 = Time.local(2019, 7, 19, 12, 15, 0)
 
           Timecop.freeze(time2) do

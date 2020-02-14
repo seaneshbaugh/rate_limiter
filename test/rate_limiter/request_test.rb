@@ -150,10 +150,10 @@ module RateLimiter
         context 'with some invalid options' do
           it 'raises an `InvalidOption` error' do
             exception = _(proc do
-                RateLimiter::Request.with(source: :some_source, invalid_option: 'Oops!') do
-                  raise 'This block should not be reached.'
-                end
-              end).must_raise(RateLimiter::Request::InvalidOption)
+              RateLimiter::Request.with(source: :some_source, invalid_option: 'Oops!') do
+                raise 'This block should not be reached.'
+              end
+            end).must_raise(RateLimiter::Request::InvalidOption)
 
             _(exception.message).must_equal('Invalid option: invalid_option')
           end
@@ -162,10 +162,10 @@ module RateLimiter
         context 'with all invalid options' do
           it 'raises an `InvalidOption` error' do
             exception = _(proc do
-                RateLimiter::Request.with(invalid_option: 'Oops!', other_invalid_option: 'Oh no!') do
-                  raise 'This block should not be reached.'
-                end
-              end).must_raise(RateLimiter::Request::InvalidOption)
+              RateLimiter::Request.with(invalid_option: 'Oops!', other_invalid_option: 'Oh no!') do
+                raise 'This block should not be reached.'
+              end
+            end).must_raise(RateLimiter::Request::InvalidOption)
 
             _(exception.message).must_equal('Invalid option: invalid_option')
           end
