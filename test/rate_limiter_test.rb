@@ -31,6 +31,30 @@ class RateLimiterTest < ActiveSupport::TestCase
     end
   end
 
+  describe '.request' do
+    context 'when no block is passed' do
+      it 'returns the Request module' do
+        _(RateLimiter.request).must_equal(::RateLimiter::Request)
+      end
+    end
+
+    context 'when a block is passed' do
+      after do
+        ::RateLimiter.request.source = nil
+      end
+
+      it 'sets request options only for the block passed' do
+        ::RateLimiter.request.source = :some_source
+
+        ::RateLimiter.request(source: :some_other_source) do
+          _(::RateLimiter.request.source).must_equal(:some_other_source)
+        end
+
+        _(::RateLimiter.request.source).must_equal(:some_source)
+      end
+    end
+  end
+
   context 'when enabled' do
     after do
       RateLimiter.enabled = true
