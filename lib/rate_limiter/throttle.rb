@@ -5,11 +5,7 @@ module RateLimiter
   # Checks to see if RateLimiter is enabled and, if all conditions are satisfied
   # and if any other records have been created within the time interval for rate
   # limiting.
-  #
-  # TODO: Reconsider name for this class. It makes using :: before the
-  # `RateLimiter` module necessary almost everywhere it's used. It's kind of
-  # annoying and seems generally ugly. Maybe something like `Throttle`?
-  class RateLimiter
+  class Throttle
     DEFAULT_INTERVAL = 1.minute
     DEFAULT_ON_FIELD = :ip_address
     DEFAULT_TIMESTAMP_FIELD = :created_at
@@ -28,9 +24,9 @@ module RateLimiter
 
     # Is RateLimiter enabled for this particular record?
     def enabled?
-      ::RateLimiter.enabled? &&
-        ::RateLimiter.request.enabled? &&
-        ::RateLimiter.request.enabled_for_model?(@record.class)
+      RateLimiter.enabled? &&
+        RateLimiter.request.enabled? &&
+        RateLimiter.request.enabled_for_model?(@record.class)
     end
 
     # Proc that if present must return true for RateLimiter to be enabled for

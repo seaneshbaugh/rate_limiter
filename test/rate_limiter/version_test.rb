@@ -6,7 +6,7 @@ module RateLimiter
     SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/.freeze
 
     it 'returns a SemVer string' do
-      _(::RateLimiter::VERSION).must_match(SEMVER_REGEX)
+      _(RateLimiter::VERSION).must_match(SEMVER_REGEX)
     end
   end
 end

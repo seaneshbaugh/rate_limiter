@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'rate_limiter/model_config'
-require 'rate_limiter/rate_limiter'
+require 'rate_limiter/throttle'
 
 module RateLimiter
   module Model
     def self.included(base)
-      base.send :extend, ClassMethods
+      base.send(:extend, ClassMethods)
     end
 
     module ClassMethods
@@ -23,22 +23,22 @@ module RateLimiter
       # - :if, :unless - Procs that specify the conditions for when record
       # creation rate limiting should occur.
       def rate_limit(options = {})
-        defaults = ::RateLimiter.config.rate_limit_defaults
+        defaults = RateLimiter.config.rate_limit_defaults
         rate_limiter.setup(defaults.merge(options))
       end
 
       def rate_limiter
-        ::RateLimiter::ModelConfig.new(self)
+        ModelConfig.new(self)
       end
     end
 
     module InstanceMethods
       def rate_limit_exceeded?
-        rate_limiter.exceeded?
+        throttle.exceeded?
       end
 
-      def rate_limiter
-        ::RateLimiter::RateLimiter.new(self, self.class.rate_limiter_options)
+      def throttle
+        Throttle.new(self, self.class.rate_limiter_options)
       end
     end
   end

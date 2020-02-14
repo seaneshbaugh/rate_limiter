@@ -17,7 +17,7 @@ module RateLimiter
       it 'adds an error to a model if the rate limit is exceeded' do
         dummy = DummyModel.new(name: 'Test')
 
-        validator = Validator.new(dummy)
+        validator = RateLimiter::Validator.new(dummy)
 
         validator.validate
 

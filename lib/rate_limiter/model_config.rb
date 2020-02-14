@@ -3,7 +3,7 @@
 require 'rate_limiter/validator'
 
 module RateLimiter
-  # Sets up RateLimiterconfiguration for an ActiveRecord model.
+  # Sets up RateLimiter configuration for an ActiveRecord model.
   class ModelConfig
     def initialize(model_class)
       @model_class = model_class
@@ -12,7 +12,7 @@ module RateLimiter
     # Set up `@model_class` for RateLimiter. Includes callbacks, class
     # attributes, instance methods, etc.
     def setup(options = {})
-      @model_class.send :include, ::RateLimiter::Model::InstanceMethods
+      @model_class.send(:include, Model::InstanceMethods)
       setup_options(options)
       setup_validations
     end

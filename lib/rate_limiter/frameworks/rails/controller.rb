@@ -43,7 +43,7 @@ module RateLimiter
       # end
       # ```
       def rate_limiter_enabled_for_controller
-        ::RateLimiter.enabled?
+        RateLimiter.enabled?
       end
 
       private
@@ -51,12 +51,12 @@ module RateLimiter
       # Tells RateLimiter whether rate limiting should be enabled for the
       # current request.
       def set_rate_limiter_enabled_for_controller
-        ::RateLimiter.request.enabled = rate_limiter_enabled_for_controller
+        RateLimiter.request.enabled = rate_limiter_enabled_for_controller
       end
 
       # Set the request store's source.
       def set_rate_limiter_source
-        ::RateLimiter.request.source = user_for_rate_limiter if rate_limiter_enabled_for_controller
+        RateLimiter.request.source = user_for_rate_limiter if rate_limiter_enabled_for_controller
       end
     end
   end
@@ -64,6 +64,6 @@ end
 
 if defined?(::ActionController)
   ::ActiveSupport.on_load(:action_controller) do
-    include ::RateLimiter::Rails::Controller
+    include RateLimiter::Rails::Controller
   end
 end

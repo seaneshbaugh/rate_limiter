@@ -10,7 +10,7 @@ module RateLimiter
           dummy_model = Class.new do
             include ActiveModel::Model
             include ActiveModel::Validations
-            include ::RateLimiter::Model
+            include RateLimiter::Model
 
             attr_accessor :name
 
@@ -26,7 +26,7 @@ module RateLimiter
           dummy_model = Class.new do
             include ActiveModel::Model
             include ActiveModel::Validations
-            include ::RateLimiter::Model
+            include RateLimiter::Model
 
             attr_accessor :ip_address
 
@@ -42,7 +42,7 @@ module RateLimiter
           dummy_model = Class.new do
             include ActiveModel::Model
             include ActiveModel::Validations
-            include ::RateLimiter::Model
+            include RateLimiter::Model
 
             attr_accessor :ip_address
 
@@ -57,7 +57,7 @@ module RateLimiter
         dummy_model = Class.new do
           include ActiveModel::Model
           include ActiveModel::Validations
-          include ::RateLimiter::Model
+          include RateLimiter::Model
 
           attr_accessor :ip_address
 

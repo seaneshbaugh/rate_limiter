@@ -7,10 +7,9 @@ module RateLimiter
   # `source`.
   #
   # It is recommended you don't use `RateLimiter::Request` directly. Instead
-  # use `RateLimiter.request.
+  # use `RateLimiter.request`.
   module Request
-    class InvalidOption < RuntimeError
-    end
+    class InvalidOption < RuntimeError; end
 
     class << self
       # Turn off RateLimiter for the given model for this request.
@@ -43,8 +42,7 @@ module RateLimiter
       # Returns `true` if RateLimiter is enabled for this model for the current
       # request, `false` otherwise.
       def enabled_for_model?(model)
-        model.include?(::RateLimiter::Model::InstanceMethods) &&
-          !!store.fetch(:"enabled_for_#{model}", true)
+        model.include?(Model::InstanceMethods) && !!store.fetch(:"enabled_for_#{model}", true)
       end
 
       def merge(options)

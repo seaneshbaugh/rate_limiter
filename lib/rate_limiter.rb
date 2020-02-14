@@ -14,7 +14,7 @@ module RateLimiter
     # Return the RateLimiter singleton configuration object. This is for all
     # threads.
     def config
-      @config ||= ::RateLimiter::Config.instance
+      @config ||= Config.instance
       yield @config if block_given?
       @config
     end
@@ -22,13 +22,13 @@ module RateLimiter
 
     # Switches RateLimiter on or off, for all threads.
     def enabled=(value)
-      ::RateLimiter.config.enabled = value
+      config.enabled = value
     end
 
     # Returns `true` if RateLimiter is on, `false if it is off. This is for all
     # threads.
     def enabled?
-      ::RateLimiter.config.enabled
+      config.enabled
     end
 
     # Gets the options local to the current request.
