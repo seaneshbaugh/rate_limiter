@@ -5,8 +5,8 @@ require 'test_helper'
 module RateLimiter
   module Generators
     class InstallGeneratorTest < ::Rails::Generators::TestCase
-      tests ::RateLimiter::Generators::InstallGenerator
-      destination File.expand_path('../../../tmp', __dir__)
+      tests RateLimiter::Generators::InstallGenerator
+      destination File.expand_path(File.join('..', '..', '..', 'tmp'), __dir__)
       setup :prepare_destination
 
       test 'all files are properly created' do
