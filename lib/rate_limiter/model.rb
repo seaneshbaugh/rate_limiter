@@ -4,11 +4,13 @@ require 'rate_limiter/model_config'
 require 'rate_limiter/throttle'
 
 module RateLimiter
+  # Mixin module for ActiveRecord models.
   module Model
     def self.included(base)
       base.send(:extend, ClassMethods)
     end
 
+    # Class methods available to models after RateLimiter has been loaded.
     module ClassMethods
       # Tell the model to limit creation of records based on an attribute for a
       # given interval of time.
@@ -32,6 +34,8 @@ module RateLimiter
       end
     end
 
+    # Instance methods available to models after RateLimiter has been initialized by
+    # calling `rate_limit`.
     module InstanceMethods
       def rate_limit_exceeded?
         throttle.exceeded?

@@ -4,6 +4,7 @@ require 'rails/generators/base'
 
 module RateLimiter
   module Generators
+    # Rails generator for installing the default RateLimiter initializer.
     class InstallGenerator < ::Rails::Generators::Base
       source_root File.expand_path('./templates', __dir__)
 

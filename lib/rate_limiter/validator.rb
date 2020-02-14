@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module RateLimiter
+  # Validates whether a model's rate limit has been exceeded.
   class Validator
     def initialize(record, options = {})
       @record = record

@@ -5,8 +5,8 @@ AllCops:
     - test/dummy_app/bin/*
     - test/dummy_app/db/schema.rb
 
-Documentation:
-  Enabled: false
+Layout/LineLength:
+  Max: 200
 
 # Metrics/AbcSize:
 #   Enabled: false
@@ -17,13 +17,13 @@ Documentation:
 # Metrics/CyclomaticComplexity:
 #   Enabled: false
 
-Metrics/LineLength:
-  Max: 200
-
 # Metrics/MethodLength:
 #   Max: 10
 
 # Metrics/PerceivedComplexity:
+#   Enabled: false
+
+# Style/Documentation:
 #   Enabled: false
 
 Style/DoubleNegation:
@@ -31,4 +31,3 @@ Style/DoubleNegation:
 
 Style/NumericLiterals:
   MinDigits: 6
-
