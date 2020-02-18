@@ -3,12 +3,13 @@ env:
     - CC_TEST_REPORTER_ID=5b3be8041addd5a1483b206ddeffc6ece88e9328ecb15eda9954a2dd610ea754
 language: ruby
 rvm:
-  - "2.5.3"
-  - "2.6.3"
+  - "2.5.7"
+  - "2.6.5"
+  - "2.7.0"
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script: bundle exec rake test
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $TRAVIS_TEST_RESULT
