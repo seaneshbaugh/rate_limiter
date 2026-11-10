@@ -45,6 +45,38 @@ class ProductReview < ActiveRecord::Base
 end
 ```
 
+## Rails integration and request state
+
+The gem registers Active Record and controller extensions through a Railtie.
+Both standard Rails controllers and `ActionController::API` are supported.
+The model DSL also works with Active Record outside a Rails application.
+
+Rails installs request_store middleware automatically. Request enablement,
+per-model overrides, and `source` are isolated between requests and threads.
+The middleware clears state when the response body closes, including streaming
+responses, and when an exception escapes the application. Global configuration
+such as `RateLimiter.enabled` and `RateLimiter.config.rate_limit_defaults`
+applies to all threads.
+
+Background jobs and standalone scripts do not have an HTTP request lifecycle.
+At the outer boundary of each work unit, clear request_store before starting
+and in an `ensure` block so a reused worker does not inherit earlier settings:
+
+```ruby
+RequestStore.clear!
+begin
+  RateLimiter.request.source = actor
+  # Create records or set request-level overrides for this work unit.
+ensure
+  RequestStore.clear!
+end
+```
+
+This clears all request_store data, so place it around the entire job or work
+unit rather than inside a library operation. A scoped override can also use
+`RateLimiter.request(enabled: false) { ... }` to restore the previous settings
+afterward, but the worker still owns cleanup at its work-unit boundary.
+
 ## Credit Where Credit Is Due
 
 Large portions of this gem are copied almost verbatim from the excellent [paper_trail](https://github.com/paper-trail-gem/paper_trail) gem; in particular the overall structure and all of the stuff that handles whether or not rate limiting is active.

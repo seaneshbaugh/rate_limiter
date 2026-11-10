@@ -4,6 +4,29 @@ require 'test_helper'
 
 module RateLimiter
   class RequestTest < ActiveSupport::TestCase
+    test 'request enablement, source, and model overrides are isolated between threads' do
+      RateLimiter.request.enabled = false
+      RateLimiter.request.source = :parent
+      RateLimiter.request.disable_model(Message)
+
+      initial_state, worker_source = Thread.new do
+        initial = [RateLimiter.request.enabled?, RateLimiter.request.source,
+                   RateLimiter.request.enabled_for_model?(Message)]
+        RateLimiter.request.enabled = true
+        RateLimiter.request.source = :worker
+        RateLimiter.request.enable_model(Message)
+        [initial, RateLimiter.request.source]
+      ensure
+        RequestStore.clear!
+      end.value
+
+      assert_equal [true, nil, true], initial_state
+      assert_equal :worker, worker_source
+      assert_equal false, RateLimiter.request.enabled?
+      assert_equal :parent, RateLimiter.request.source
+      assert_equal false, RateLimiter.request.enabled_for_model?(Message)
+    end
+
     describe '.disable_model' do
       after do
         RateLimiter::Request.enable_model(Message)

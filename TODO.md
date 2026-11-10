@@ -58,19 +58,31 @@ pages, and rendering validation errors for a rejected second creation.
 
 ## 3. Make Rails loading and request lifecycle integration reliable
 
-- [ ] Introduce a small Railtie with explicit Active Record and controller
+- [x] Introduce a small Railtie with explicit Active Record and controller
       load hooks, removing integration that depends on constants already being
       defined at require time.
-- [ ] Preserve the existing model DSL, controller hooks, and public
+- [x] Preserve the existing model DSL, controller hooks, and public
       configuration/request APIs.
-- [ ] Verify controller integration for both standard and API-only Rails apps.
-- [ ] Verify normal boot, eager loading, and development reloading without
+- [x] Verify controller integration for both standard and API-only Rails apps.
+- [x] Verify normal boot, eager loading, and development reloading without
       missing integration or duplicate callbacks/validations.
-- [ ] Verify request_store middleware installation and cleanup across successive
+- [x] Verify request_store middleware installation and cleanup across successive
       requests, including exceptions, so enablement and source do not leak.
-- [ ] Cover thread isolation and document lifecycle expectations for callers
+- [x] Cover thread isolation and document lifecycle expectations for callers
       outside HTTP requests. Retain request_store unless compatibility requires
       a replacement; defer a broader configuration/storage redesign.
+
+Section 3 verification: subprocess tests boot standard and API-only Rails apps
+with the gem loaded before Rails, after framework classes, and after an early
+request_store require. They cover eager loading, two reload cycles, exactly one
+middleware/controller callback registration, model validation without duplicate
+errors, successive requests, and exception cleanup. A separate process verifies
+record creation limiting with Active Record and no Rails application. Thread
+isolation is covered for request enablement, source, and per-model overrides.
+The Rails lifecycle cases use temporary apps/databases and do not rely on the
+dummy app having already loaded the gem.
+The full suite passes with seed 12345: 49 tests / 99 assertions. The gem also
+builds successfully with the new Railtie included.
 
 ## 4. Fix conditional options and temporary request configuration
 

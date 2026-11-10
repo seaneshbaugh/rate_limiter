@@ -61,9 +61,3 @@ module RateLimiter
     end
   end
 end
-
-if defined?(::ActionController)
-  ::ActiveSupport.on_load(:action_controller) do
-    include RateLimiter::Rails::Controller
-  end
-end

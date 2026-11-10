@@ -2,6 +2,7 @@
 
 require 'active_support/all'
 require 'active_record'
+require 'rails/railtie'
 
 require 'rate_limiter/config'
 require 'rate_limiter/model'
@@ -46,18 +47,4 @@ module RateLimiter
   end
 end
 
-# See https://guides.rubyonrails.org/engines.html#what-are-on-load-hooks-questionmark
-# for more information on `on_load` hooks.
-ActiveSupport.on_load(:active_record) do
-  include RateLimiter::Model
-end
-
-# Load Rails controller extensions if RateLimiter is being used in a Rails
-# application.
-if defined?(::Rails)
-  if defined?(::Rails.application)
-    require 'rate_limiter/frameworks/rails'
-  else
-    Kernel.warn('RateLimiter has been loaded before Rails.')
-  end
-end
+require 'rate_limiter/railtie'
