@@ -15,24 +15,24 @@ Gem::Specification.new do |s|
   s.summary     = 'Adds creation rate limiting to ActiveRecord models.'
   s.description = 'Adds creation rate limiting to ActiveRecord models.'
 
-  s.required_ruby_version     = '>= 2.5.0'
-  s.required_rubygems_version = '>= 1.8.11'
+  s.required_ruby_version = '~> 4.0.0'
 
   s.files         = Dir['lib/**/*', 'CHANGELOG.md', 'LICENSE.txt', 'README.md', 'rate_limiter.gemspec']
   s.executables   = []
   s.require_paths = ['lib']
 
-  s.add_dependency 'activerecord', '>= 5.0.0'
-  s.add_dependency 'railties', '>= 5.0.0'
-  s.add_dependency 'request_store', '~> 1.4'
+  s.add_dependency 'activerecord', '~> 8.1.0'
+  s.add_dependency 'railties', '~> 8.1.0'
+  s.add_dependency 'request_store', '~> 1.7'
 
-  s.add_development_dependency 'minitest-spec-rails', '6.0.2'
-  s.add_development_dependency 'pry', '0.12.2'
-  s.add_development_dependency 'puma', '4.3.1'
-  s.add_development_dependency 'rails', '6.0.2.1'
-  s.add_development_dependency 'rake', '13.0.1'
-  s.add_development_dependency 'rubocop', '0.79.0'
-  s.add_development_dependency 'simplecov', '0.18.1'
-  s.add_development_dependency 'sqlite3', '1.4.2'
-  s.add_development_dependency 'timecop', '0.9.1'
+  # Keep the existing harness on Minitest 5 while modernizing the test app.
+  s.add_development_dependency 'minitest', '~> 5.0'
+  s.add_development_dependency 'minitest-spec-rails', '~> 7.4'
+  s.add_development_dependency 'puma', '~> 8.0'
+  s.add_development_dependency 'rails', '8.1.4.1'
+  s.add_development_dependency 'rake', '~> 13.3'
+  s.add_development_dependency 'rubocop', '~> 1.92'
+  s.add_development_dependency 'simplecov', '~> 1.3'
+  s.add_development_dependency 'sqlite3', '~> 2.10'
+  s.add_development_dependency 'timecop', '~> 0.9.11'
 end

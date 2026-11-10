@@ -9,7 +9,7 @@ Limit the rate at which ActiveRecord model instances can be created.
 
 ## Compatibility
 
-This gem is compatible with Ruby 2.5 or greater and Rails 5 or greater. For Ruby versions older than 2.5 or for Rails 3 and 4 use [version 0.0.6](https://rubygems.org/gems/rate_limiter/versions/0.0.6).
+The upcoming release targets Ruby 4.0 and Rails 8.1. Development uses Ruby 4.0.9 and Rails 8.1.4.1. Compatibility work is tracked in [TODO.md](TODO.md); the full test suite is not yet passing on this stack.
 
 ## Installation
 
@@ -50,6 +50,19 @@ end
 Large portions of this gem are copied almost verbatim from the excellent [paper_trail](https://github.com/paper-trail-gem/paper_trail) gem; in particular the overall structure and all of the stuff that handles whether or not rate limiting is active.
 
 ## Contributing
+
+Use Ruby 4.0.9, selected by `.ruby-version` or `.tool-versions`. With mise:
+
+```sh
+mise exec -- ruby -v
+mise exec -- bundle config set --local path .bundle/gems
+mise exec -- bundle install
+mise exec -- bundle exec rake test
+```
+
+If your shell already selects Ruby 4.0.9, omit `mise exec --`. Dependencies are installed inside the ignored `.bundle` directory. Bundler also generates an ignored `Gemfile.lock` for repeatable local runs.
+
+The dependency update installs successfully, but the Rails 6 dummy app currently stops test startup at `require 'sprockets/railtie'`. Modernizing that app is the next step; see section 2 of [TODO.md](TODO.md).
 
 If you feel like you can add something useful to rate_limiter then don't hesitate to contribute! To make sure your fix/feature has a high chance of being included, please do the following:
 
