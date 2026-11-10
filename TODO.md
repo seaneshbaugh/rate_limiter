@@ -25,27 +25,36 @@ Section 1 verification: dependencies install and `bundle check` passes on Ruby
 4.0.9 with Rails 8.1.4.1. An isolated Rails/SQLite smoke check verifies model
 creation limiting, automatic request_store middleware installation, and cleanup
 after successive requests and exceptions with Rack 3.2.8 / request_store 1.7.0.
-The full suite currently stops while booting the old dummy app because
-`sprockets/railtie` is unavailable; resolving that belongs to section 2.
+At the end of section 1, the full suite stopped while booting the old dummy app
+because `sprockets/railtie` was unavailable; section 2 resolves that failure.
 Pry was removed as unused; Puma remains for running the dummy app manually.
 Minitest stays on version 5 while the existing harness is modernized.
 
 ## 2. Modernize the Rails test application and test harness
 
-- [ ] Move the dummy app to Rails 8.1 defaults and supported configuration,
+- [x] Move the dummy app to Rails 8.1 defaults and supported configuration,
       including exception handling and database setup.
-- [ ] Reduce the app to frameworks and assets needed for model, controller,
+- [x] Reduce the app to frameworks and assets needed for model, controller,
       and generator tests; remove stale framework and Sprockets boot requirements
       where unnecessary.
-- [ ] Update the Minitest integration, retaining the current test style if a
+- [x] Update the Minitest integration, retaining the current test style if a
       supported adapter is available; otherwise use supported Minitest APIs.
-- [ ] Replace deprecated `SimpleCov.add_filter` with `SimpleCov.skip`.
-- [ ] Fix test files that rely on another test having loaded `test_helper`.
-- [ ] Reset global/request configuration between tests and restore controller
+- [x] Replace deprecated `SimpleCov.add_filter` with `SimpleCov.skip`.
+- [x] Fix test files that rely on another test having loaded `test_helper`.
+- [x] Reset global/request configuration between tests and restore controller
       overrides even when assertions fail. Verify randomized test execution.
-- [ ] Ensure the dummy controller performs one creation attempt per request
+- [x] Ensure the dummy controller performs one creation attempt per request
       rather than calling both `create` and `save`.
-- [ ] Run the suite on Ruby 4.0.9 / Rails 8.1.4.1 and fix compatibility failures.
+- [x] Run the suite on Ruby 4.0.9 / Rails 8.1.4.1 and fix compatibility failures.
+
+Section 2 verification: 39 tests / 85 assertions pass on Ruby 4.0.9 and Rails
+8.1.4.1 with seeds 12345 and 54321, including a fresh SQLite database loaded
+automatically from the schema. Both migrations also run against an empty
+in-memory database, and the schema was regenerated from those migrations.
+The validator and version tests pass independently. Minitest 5.27.0 with
+minitest-spec-rails 7.4.1 supports the existing DSL without a test-style rewrite.
+Controller coverage includes successful creation, rendering the detail/list
+pages, and rendering validation errors for a rejected second creation.
 
 ## 3. Make Rails loading and request lifecycle integration reliable
 

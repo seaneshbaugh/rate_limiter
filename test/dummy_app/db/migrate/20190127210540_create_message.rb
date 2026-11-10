@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateMessage < ActiveRecord::Migration[5.2]
+class CreateMessage < ActiveRecord::Migration[8.1]
   def change
     create_table :messages do |t|
       t.references :user, foreign_key: true

@@ -13,10 +13,10 @@
     <strong>IP Address:</strong> <%= @message.ip_address %>
   </div>
   <div class="message-created-at">
-    <strong>Created At:</strong> <%= @message.created_at.to_s(:iso8601) %>
+    <strong>Created At:</strong> <%= @message.created_at.iso8601 %>
   </div>
 </div>
 <% if @message.user == current_user %>
   <%= link_to('Edit Message', edit_message_path(@message)) %>&nbsp;
-  <%= link_to('Delete Message', message_path(@message), method: :delete) %>
+  <%= button_to('Delete Message', message_path(@message), method: :delete) %>
 <% end %>

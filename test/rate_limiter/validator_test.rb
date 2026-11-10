@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'test_helper'
+
 module RateLimiter
   class ValidatorTest < ActiveSupport::TestCase
     class DummyModel

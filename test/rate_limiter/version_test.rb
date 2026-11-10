@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'test_helper'
+
 module RateLimiter
   class VersionTest < ActiveSupport::TestCase
     # See https://github.com/semver/semver/pull/460

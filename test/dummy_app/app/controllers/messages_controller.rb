@@ -4,7 +4,6 @@ class MessagesController < ApplicationController
   include RequireCurrentUser
 
   before_action :require_current_user, only: %i[new create edit update destroy]
-  before_action :set_message, only: %i[show edit update destroy]
 
   def index
     @messages = Message.all
@@ -19,7 +18,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.create(message_params_with_current_user)
+    @message = Message.new(message_params_with_current_user)
 
     if @message.save
       flash[:success] = 'Message created.'
@@ -28,7 +27,7 @@ class MessagesController < ApplicationController
     else
       flash.now[:error] = "Message not created. #{@message.errors.full_messages.join('. ')}."
 
-      render 'new', status: :unprocessable_entity
+      render 'new', status: :unprocessable_content
     end
   end
 
@@ -46,7 +45,7 @@ class MessagesController < ApplicationController
     else
       flash.now[:error] = "Message not updated. #{@message.errors.full_messages.join('. ')}."
 
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 
@@ -67,7 +66,7 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.required(:message).permit(:subject, :body)
+    params.require(:message).permit(:subject, :body)
   end
 
   def message_params_with_current_user

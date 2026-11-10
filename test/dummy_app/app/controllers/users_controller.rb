@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
 
     if @user.save
       flash[:success] = 'User created.'
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     else
       flash.now[:error] = "User not created. #{@user.errors.full_messages.join('. ')}."
 
-      render 'new', status: :unprocessable_entity
+      render 'new', status: :unprocessable_content
     end
   end
 
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     else
       flash.now[:error] = "User not updated. #{@user.errors.full_messages.join('. ')}."
 
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 
@@ -62,6 +62,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.required(:user).permit(:email)
+    params.require(:user).permit(:email)
   end
 end

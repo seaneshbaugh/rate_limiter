@@ -4,8 +4,6 @@
     <title>DummyApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
   </head>
   <body>
     <header>
@@ -13,7 +11,7 @@
       <%= link_to 'Users', users_path %>&nbsp;|
       <% if current_user.present? %>
         Currently logged in as <%= current_user.email %>&nbsp;|
-        <%= link_to('Logout', destroy_session_path, method: :delete) %>
+        <%= button_to('Logout', destroy_session_path, method: :delete) %>
       <% else %>
         <%= form_tag(create_session_path, method: :post) do %>
           <%= email_field_tag(:email) %>

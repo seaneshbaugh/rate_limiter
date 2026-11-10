@@ -5,7 +5,7 @@ ENV['RAILS_ENV'] = 'test'
 require 'simplecov'
 
 SimpleCov.start do
-  add_filter '/test/'
+  skip '/test/'
 end
 
 require_relative 'dummy_app/config/environment'
@@ -18,6 +18,19 @@ ActiveSupport.test_order = :random
 
 module ActiveSupport
   class TestCase
+    setup do
+      RateLimiter.enabled = true
+      RateLimiter.config.rate_limit_defaults = {}
+      RequestStore.clear!
+    end
+
+    teardown do
+      RateLimiter.enabled = true
+      RateLimiter.config.rate_limit_defaults = {}
+      RequestStore.clear!
+      Timecop.return
+    end
+
     class << self
       alias context describe
     end
